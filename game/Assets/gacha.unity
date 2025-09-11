@@ -184,11 +184,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 348625184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57967510b42702449a34f521e37ec1e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 81371febbaf20414db8665f93a718c9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheelScroller: {fileID: 348625186}
-  panels: []
+  resultPanel: {fileID: 0}
+  resultText: {fileID: 0}
+  resultIcon: {fileID: 0}
+  gacha1Loot: []
+  gacha2Loot: []
+  gacha3Loot: []
 --- !u!1 &415245822
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,8 +383,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd18068f602696e478d9462f21f3fcb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewards: []
-  panelAnimator: {fileID: 0}
 --- !u!1 &507759795
 GameObject:
   m_ObjectHideFlags: 0
@@ -606,8 +608,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd18068f602696e478d9462f21f3fcb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewards: []
-  panelAnimator: {fileID: 0}
 --- !u!1 &1983941539
 GameObject:
   m_ObjectHideFlags: 0
@@ -775,11 +775,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd18068f602696e478d9462f21f3fcb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewards:
-  - asset: {fileID: 3474587588078634301, guid: 0a6694b87d757c04387d034a8e3d32c7, type: 3}
-    rarity: 0
-    dropChance: 0
-  panelAnimator: {fileID: 0}
 --- !u!1 &2071122485
 GameObject:
   m_ObjectHideFlags: 0

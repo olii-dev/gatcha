@@ -71,9 +71,9 @@ public class GachaController : MonoBehaviour
 
         switch (panel)
         {
-            case 0: table = gacha1Loot; break; // FIX: panel 0 instead of 1
-            case 1: table = gacha2Loot; break;
-            case 2: table = gacha3Loot; break;
+            case 1: table = gacha1Loot; break; // FIX: panel 0 instead of 1
+            case 2: table = gacha2Loot; break;
+            case 3: table = gacha3Loot; break;
             default:
                 Debug.Log("No gacha for this panel.");
                 return null;
