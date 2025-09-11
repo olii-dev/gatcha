@@ -1,63 +1,116 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class GachaController : MonoBehaviour
 {
     private WheelScroller wheelScroller;
 
+    [Header("UI References")]
+    public GameObject resultPanel;        // Panel that shows result
+    public TextMeshProUGUI resultText;    // Text field for result
+    public Image resultIcon;              // Icon field for result
+
+    [Header("Loot Tables")]
+    public LootItem[] gacha1Loot;   // Panel 0 loot
+    public LootItem[] gacha2Loot;   // Panel 1 loot
+    public LootItem[] gacha3Loot;   // Panel 2 loot
+
+    private bool showingResult = false;
+
     void Start()
     {
         wheelScroller = GetComponent<WheelScroller>();
+
+        if (resultPanel != null)
+            resultPanel.SetActive(false); // hide on start
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            int panel = wheelScroller.CurrentIndex;
-
-            switch (panel)
+            if (!showingResult)
             {
-                case 1:
-                    RunGachaMachine1();
-                    break;
-                case 2:
-                    RunGachaMachine2();
-                    break;
-                case 3:
-                    RunGachaMachine3();
-                    break;
-                default:
-                    Debug.Log("No gacha on this panel.");
-                    break;
+                // roll loot based on active panel
+                int panel = wheelScroller.CurrentIndex;
+                LootItem loot = RollFromPanel(panel);
+
+                if (loot != null && resultPanel != null && resultText != null)
+                {
+                    resultPanel.SetActive(true);
+                    resultText.text = loot.itemName;
+
+                    if (loot.icon != null && resultIcon != null)
+                    {
+                        resultIcon.sprite = loot.icon;
+                        resultIcon.enabled = true;
+                    }
+                    else if (resultIcon != null)
+                    {
+                        resultIcon.enabled = false;
+                    }
+                }
+
+                showingResult = true;
+            }
+            else
+            {
+                // hide UI
+                if (resultPanel != null)
+                    resultPanel.SetActive(false);
+
+                showingResult = false;
             }
         }
     }
 
-    private void RunGachaMachine1()
+    private LootItem RollFromPanel(int panel)
     {
-        Debug.Log("Gacha 1 result: " + RollLoot());
-        // TODO: play animation here
+        LootItem[] table = null;
+
+        switch (panel)
+        {
+            case 0: table = gacha1Loot; break; // FIX: panel 0 instead of 1
+            case 1: table = gacha2Loot; break;
+            case 2: table = gacha3Loot; break;
+            default:
+                Debug.Log("No gacha for this panel.");
+                return null;
+        }
+
+        if (table == null || table.Length == 0)
+        {
+            Debug.LogWarning($"Panel {panel} has no loot items!");
+            return null;
+        }
+
+        // Calculate total weight
+        int totalWeight = 0;
+        foreach (var item in table) totalWeight += item.weight;
+
+        int roll = Random.Range(0, totalWeight);
+        int cumulative = 0;
+
+        foreach (var item in table)
+        {
+            cumulative += item.weight;
+            if (roll < cumulative)
+            {
+                Debug.Log($"Panel {panel} rolled: {item.itemName}");
+                return item;
+            }
+        }
+
+        return null;
     }
 
-    private void RunGachaMachine2()
+    [System.Serializable]
+    public class LootItem
     {
-        Debug.Log("Gacha 2 result: " + RollLoot());
-        // TODO: play animation here
-    }
-
-    private void RunGachaMachine3()
-    {
-        Debug.Log("Gacha 3 result: " + RollLoot());
-        // TODO: play animation here
-    }
-
-    private string RollLoot()
-    {
-        // Adjust these chances however you like (they must total 100)
-        int roll = Random.Range(1, 101); // 1–100
-        if (roll <= 60) return "Common";       // 60% chance
-        if (roll <= 85) return "Rare";         // next 25%
-        if (roll <= 97) return "Epic";         // next 12%
-        return "Legendary";                    // last 3%
+        public string itemName;    // FIX: renamed from "name"
+        public Sprite icon;
+        [Range(1, 100)]
+        public int weight = 10;
     }
 }
