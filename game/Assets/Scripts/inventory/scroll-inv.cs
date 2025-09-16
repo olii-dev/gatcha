@@ -5,9 +5,12 @@ public class VerticalScroller : MonoBehaviour
     public RectTransform container; // The object to scroll vertically (e.g., your square)
     public float scrollAmount = 200f; // Amount to scroll per step (in pixels/units)
     public float slideSpeed = 1000f; // Sliding speed in units per second
+    public float minY = 0f; // Top limit (adjust as needed)
+    public float maxY = -800f; // Bottom limit (adjust as needed)
 
     private Vector2 targetPos;
     private bool isMoving = false;
+    private int direction = -1; // -1 = down, 1 = up
 
     void Start()
     {
@@ -16,15 +19,10 @@ public class VerticalScroller : MonoBehaviour
 
     void Update()
     {
-        // Scroll up on B key if not moving
+        // Scroll on B key if not moving
         if (Input.GetKeyDown(KeyCode.B) && !isMoving)
         {
-            ScrollUp();
-        }
-        // Scroll down on N key if not moving
-        if (Input.GetKeyDown(KeyCode.N) && !isMoving)
-        {
-            ScrollDown();
+            Scroll();
         }
 
         // Smoothly move container toward target
@@ -44,15 +42,21 @@ public class VerticalScroller : MonoBehaviour
         }
     }
 
-    private void ScrollUp()
+    private void Scroll()
     {
-        targetPos = container.anchoredPosition + new Vector2(0, scrollAmount);
-        isMoving = true;
-    }
-
-    private void ScrollDown()
-    {
-        targetPos = container.anchoredPosition - new Vector2(0, scrollAmount);
+        float nextY = container.anchoredPosition.y + direction * scrollAmount;
+        // Clamp and reverse direction if at bounds
+        if (nextY < maxY)
+        {
+            nextY = maxY;
+            direction = 1; // Reverse to up
+        }
+        else if (nextY > minY)
+        {
+            nextY = minY;
+            direction = -1; // Reverse to down
+        }
+        targetPos = new Vector2(container.anchoredPosition.x, nextY);
         isMoving = true;
     }
 }
