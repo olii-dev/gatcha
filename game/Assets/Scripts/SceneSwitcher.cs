@@ -4,8 +4,7 @@ using UnityEngine.SceneManagement;
 public class SceneSwitcher : MonoBehaviour
 {
     [Header("Scene Names")]
-    public string sceneToLoad;  // Name of the scene you want to switch to
-
+    public string sceneToLoad;  
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))

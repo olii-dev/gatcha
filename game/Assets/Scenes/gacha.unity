@@ -193,7 +193,11 @@ MonoBehaviour:
   gacha1Loot: []
   gacha2Loot: []
   gacha3Loot: []
-  rollCost: 10
+  gacha4Loot: []
+  panel1Cost: 0
+  panel2Cost: 10
+  panel3Cost: 20
+  panel4Cost: 30
 --- !u!1 &415245822
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,7 +336,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 347, y: -77}
+  m_AnchoredPosition: {x: 347, y: -143}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &431018656
@@ -460,7 +464,7 @@ GameObject:
   - component: {fileID: 451636098}
   - component: {fileID: 451636100}
   m_Layer: 5
-  m_Name: wheel 2
+  m_Name: gacha1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -685,7 +689,7 @@ GameObject:
   - component: {fileID: 697971474}
   - component: {fileID: 697971476}
   m_Layer: 5
-  m_Name: wheel 3
+  m_Name: gacha2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -897,7 +901,7 @@ GameObject:
   - component: {fileID: 2043223896}
   - component: {fileID: 2043223898}
   m_Layer: 5
-  m_Name: wheel 1
+  m_Name: gacha0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -984,7 +988,7 @@ GameObject:
   - component: {fileID: 2071122488}
   - component: {fileID: 2071122487}
   m_Layer: 5
-  m_Name: wheel 4
+  m_Name: gacha3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

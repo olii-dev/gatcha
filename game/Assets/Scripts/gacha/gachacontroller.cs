@@ -7,26 +7,29 @@ public class GachaController : MonoBehaviour
     private WheelScroller wheelScroller;
 
     [Header("UI References")]
-    public GameObject resultPanel;        // Panel that shows result
-    public TextMeshProUGUI resultText;    // Text field for result
-    public Image resultIcon;              // Icon field for result
+    public GameObject resultPanel;        
+    public TextMeshProUGUI resultText;    
+    public Image resultIcon;              
 
     [Header("Loot Tables")]
-    public LootItem[] gacha1Loot;   // Panel 1 loot
-    public LootItem[] gacha2Loot;   // Panel 2 loot
-    public LootItem[] gacha3Loot;   // Panel 3 loot
+    public LootItem[] gacha1Loot;   
+    public LootItem[] gacha2Loot;   
+    public LootItem[] gacha3Loot;   
+    public LootItem[] gacha4Loot;   // added for 4th panel
 
-    [Header("Gacha Settings")]
-    public int rollCost = 10;   // cost of rolling (editable in Inspector)
+    [Header("Gacha Costs")]
+    public int panel1Cost = 10;
+    public int panel2Cost = 20;
+    public int panel3Cost = 30;
+    public int panel4Cost = 40;   // added for 4th panel
 
     private bool showingResult = false;
 
     void Start()
     {
         wheelScroller = GetComponent<WheelScroller>();
-
         if (resultPanel != null)
-            resultPanel.SetActive(false); // hide on start
+            resultPanel.SetActive(false); 
     }
 
     void Update()
@@ -35,14 +38,16 @@ public class GachaController : MonoBehaviour
         {
             if (!showingResult)
             {
-                // check if player has enough gold
-                if (NewMonoBehaviourScript.gold >= rollCost)
-                {
-                    // spend gold
-                    NewMonoBehaviourScript.gold -= rollCost;
+                int panel = wheelScroller.CurrentIndex;
 
-                    // roll loot based on active panel
-                    int panel = wheelScroller.CurrentIndex;
+                // Determine cost for this panel
+                int cost = GetPanelCost(panel);
+
+                // Check if player has enough gold
+                if (NewMonoBehaviourScript.gold >= cost)
+                {
+                    NewMonoBehaviourScript.gold -= cost;
+
                     LootItem loot = RollFromPanel(panel);
 
                     if (loot != null && resultPanel != null && resultText != null)
@@ -65,12 +70,11 @@ public class GachaController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Not enough gold to roll!");
+                    Debug.Log("Not enough gold to roll this panel!");
                 }
             }
             else
             {
-                // hide UI
                 if (resultPanel != null)
                     resultPanel.SetActive(false);
 
@@ -79,15 +83,28 @@ public class GachaController : MonoBehaviour
         }
     }
 
+    private int GetPanelCost(int panel)
+    {
+        switch(panel)
+        {
+            case 0: return panel1Cost;
+            case 1: return panel2Cost;
+            case 2: return panel3Cost;
+            case 3: return panel4Cost;   // added case for 4th panel
+            default: return 0;
+        }
+    }
+
     private LootItem RollFromPanel(int panel)
     {
         LootItem[] table = null;
 
-        switch (panel)
+        switch(panel)
         {
-            case 1: table = gacha1Loot; break;
-            case 2: table = gacha2Loot; break;
-            case 3: table = gacha3Loot; break;
+            case 0: table = gacha1Loot; break;
+            case 1: table = gacha2Loot; break;
+            case 2: table = gacha3Loot; break;
+            case 3: table = gacha4Loot; break;  // added case for 4th panel
             default:
                 Debug.Log("No gacha for this panel.");
                 return null;
@@ -99,7 +116,6 @@ public class GachaController : MonoBehaviour
             return null;
         }
 
-        // Calculate total weight
         int totalWeight = 0;
         foreach (var item in table) totalWeight += item.weight;
 
@@ -122,9 +138,10 @@ public class GachaController : MonoBehaviour
     [System.Serializable]
     public class LootItem
     {
-        public string itemName;
+        public string itemName;    
         public Sprite icon;
         [Range(1, 100)]
         public int weight = 10;
     }
 }
+
