@@ -12,9 +12,12 @@ public class GachaController : MonoBehaviour
     public Image resultIcon;              // Icon field for result
 
     [Header("Loot Tables")]
-    public LootItem[] gacha1Loot;   // Panel 0 loot
-    public LootItem[] gacha2Loot;   // Panel 1 loot
-    public LootItem[] gacha3Loot;   // Panel 2 loot
+    public LootItem[] gacha1Loot;   // Panel 1 loot
+    public LootItem[] gacha2Loot;   // Panel 2 loot
+    public LootItem[] gacha3Loot;   // Panel 3 loot
+
+    [Header("Gacha Settings")]
+    public int rollCost = 10;   // cost of rolling (editable in Inspector)
 
     private bool showingResult = false;
 
@@ -32,27 +35,38 @@ public class GachaController : MonoBehaviour
         {
             if (!showingResult)
             {
-                // roll loot based on active panel
-                int panel = wheelScroller.CurrentIndex;
-                LootItem loot = RollFromPanel(panel);
-
-                if (loot != null && resultPanel != null && resultText != null)
+                // check if player has enough gold
+                if (NewMonoBehaviourScript.gold >= rollCost)
                 {
-                    resultPanel.SetActive(true);
-                    resultText.text = loot.itemName;
+                    // spend gold
+                    NewMonoBehaviourScript.gold -= rollCost;
 
-                    if (loot.icon != null && resultIcon != null)
+                    // roll loot based on active panel
+                    int panel = wheelScroller.CurrentIndex;
+                    LootItem loot = RollFromPanel(panel);
+
+                    if (loot != null && resultPanel != null && resultText != null)
                     {
-                        resultIcon.sprite = loot.icon;
-                        resultIcon.enabled = true;
+                        resultPanel.SetActive(true);
+                        resultText.text = loot.itemName;
+
+                        if (loot.icon != null && resultIcon != null)
+                        {
+                            resultIcon.sprite = loot.icon;
+                            resultIcon.enabled = true;
+                        }
+                        else if (resultIcon != null)
+                        {
+                            resultIcon.enabled = false;
+                        }
                     }
-                    else if (resultIcon != null)
-                    {
-                        resultIcon.enabled = false;
-                    }
+
+                    showingResult = true;
                 }
-
-                showingResult = true;
+                else
+                {
+                    Debug.Log("Not enough gold to roll!");
+                }
             }
             else
             {
@@ -71,7 +85,7 @@ public class GachaController : MonoBehaviour
 
         switch (panel)
         {
-            case 1: table = gacha1Loot; break; // FIX: panel 0 instead of 1
+            case 1: table = gacha1Loot; break;
             case 2: table = gacha2Loot; break;
             case 3: table = gacha3Loot; break;
             default:
@@ -108,7 +122,7 @@ public class GachaController : MonoBehaviour
     [System.Serializable]
     public class LootItem
     {
-        public string itemName;    // FIX: renamed from "name"
+        public string itemName;
         public Sprite icon;
         [Range(1, 100)]
         public int weight = 10;
