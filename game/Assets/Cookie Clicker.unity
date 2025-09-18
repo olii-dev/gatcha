@@ -450,7 +450,7 @@ GameObject:
   - component: {fileID: 1803917821}
   - component: {fileID: 1803917820}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: gold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

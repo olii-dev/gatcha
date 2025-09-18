@@ -6,7 +6,7 @@ using TMPro;
 public class NewMonoBehaviourScript : MonoBehaviour
 {
 
-    public int gold = 0;
+    public static int gold = 0; 
     public TMP_Text goldText;
 
     
