@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1280
     height: 709.3334
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 332}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 37
+  controlID: 8626
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 38
+  controlID: 8627
   draggingID: 0
 --- !u!114 &7
 MonoBehaviour:
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 39
+  controlID: 8628
   draggingID: 0
 --- !u!114 &8
 MonoBehaviour:
@@ -301,8 +301,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Game\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 286.33334
-    y: 24
+    x: 285.33334
+    y: 78.66667
     width: 664
     height: 360.66666
   m_SerializedDataModeController:
@@ -360,18 +360,18 @@ MonoBehaviour:
       y: 21
       width: 664
       height: 339.66666
-    m_Scale: {x: 1.7073543, y: 1.7073543}
-    m_Translation: {x: 328.62506, y: 161.96143}
+    m_Scale: {x: 1.6974188, y: 1.697419}
+    m_Translation: {x: 330.33606, y: 162.27391}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -192.4762
-      y: -94.86105
-      width: 388.9058
-      height: 198.94327
+      x: -194.61081
+      y: -95.60038
+      width: 391.1822
+      height: 200.10773
     m_MinimalGUI: 1
   m_defaultScale: 1
   m_LastWindowPixelSize: {x: 996, y: 541}
@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 24
+    y: 78.66667
     width: 284.33334
     height: 360.66666
   m_SerializedDataModeController:
@@ -422,7 +422,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: d8faffff
+      m_ExpandedIDs: a6b8ffff9ebcffff68c4ffff22d4ffffa8d5ffffead5ffff60d6ffff2cdaffffc0daffff6ae3ffff84e6ffffc6e6ffff3ce7ffff00f3ffffcef5ffff66faffff7eb8000012bb0000b0be0000f6be0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -468,10 +468,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Scene\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 286
+    x: 285.33334
     y: 78.66667
-    width: 663.3333
-    height: 361.33334
+    width: 664
+    height: 360.66666
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1082,9 +1082,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 5.6205554, y: -2.9263978, z: -0.0856244}
+    m_Target: {x: -2.4278595, y: 1.2069902, z: -10.027877}
     speed: 2
-    m_Value: {x: -0.2361606, y: -1.0619047, z: 0.06624144}
+    m_Value: {x: -2.4278595, y: 1.2069902, z: -10.027877}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1134,9 +1134,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 18.562445
+    m_Target: 9.114112
     speed: 2
-    m_Value: 3.3758414
+    m_Value: 9.114112
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1261,7 +1261,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 410.66666
+    y: 465.33334
     width: 950.3333
     height: 240.66666
   m_SerializedDataModeController:
@@ -1286,7 +1286,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs/Hammers
+    - Assets/Scripts/gacha
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1296,16 +1296,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Prefabs/Hammers
+  - Assets/Scripts/gacha
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\alpha\Downloads\gatcha\game
+  m_LastProjectPath: C:\Users\ValentineLaptop\OneDrive - Trinity College Gawler\Documents\GitHub\gatcha\game
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 8eb20000
-    m_LastClickedID: 45710
-    m_ExpandedIDs: 000000007eb20000
+    scrollPos: {x: 0, y: 79.83243}
+    m_SelectedIDs: 0ab30000
+    m_LastClickedID: 45834
+    m_ExpandedIDs: 00000000587000007eb20000d6b2000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1334,7 +1334,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000007eb20000
+    m_ExpandedIDs: 00000000587000007eb20000d6b2000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1363,7 +1363,7 @@ MonoBehaviour:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c6230000000000002a120100be0e0100
+    m_ExpandedInstanceIDs: c62300002a120100be0e010000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1380,7 +1380,7 @@ MonoBehaviour:
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
-      m_ClientGUIView: {fileID: 10}
+      m_ClientGUIView: {fileID: 9}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -1449,8 +1449,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 952.3333
-    y: 24
+    x: 951.3334
+    y: 78.66667
     width: 327.6667
     height: 627.3333
   m_SerializedDataModeController:
@@ -1471,7 +1471,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 0
+  m_LastVerticalScrollValue: 11.25002
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
