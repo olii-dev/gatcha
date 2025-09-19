@@ -3,13 +3,19 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 
+
 public class GachaController : MonoBehaviour
 {
     private WheelScroller wheelScroller;
 
     [Header("UI References")]
+    
+    
+    [Header("UI References")]
     public GameObject resultPanel;
     public TextMeshProUGUI resultText;
+    public Transform lootSpawnPoint; // ADD THIS LINE
+
 
     [Header("Animation")]
     public Animator gachaAnimator;            // attach your gacha Animator
@@ -101,12 +107,18 @@ public class GachaController : MonoBehaviour
             if (loot.prefab != null)
             {
                 // Clear previous prefab first
-                foreach (Transform child in resultPanel.transform)
-                    Destroy(child.gameObject);
+                // Clear previous loot only
+                foreach (Transform child in lootSpawnPoint)
+                Destroy(child.gameObject);
 
-                GameObject go = Instantiate(loot.prefab, resultPanel.transform);
-                go.transform.localPosition = Vector3.zero;
+                // Spawn new loot prefab
+                if (loot.prefab != null)
+                {
+                GameObject go = Instantiate(loot.prefab, lootSpawnPoint);
+                go.transform.localPosition = Vector3.zero; // adjust if needed
                 go.transform.localScale = Vector3.one;
+                }
+
             }
         }
     }
@@ -159,4 +171,5 @@ public class GachaController : MonoBehaviour
         [Range(1, 100)]
         public int weight = 10;
     }
+ 
 }
