@@ -1,27 +1,31 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class GachaController : MonoBehaviour
 {
     private WheelScroller wheelScroller;
 
     [Header("UI References")]
-    public GameObject resultPanel;        
-    public TextMeshProUGUI resultText;    
-    public Image resultIcon;              
+    public GameObject resultPanel;
+    public TextMeshProUGUI resultText;
+
+    [Header("Animation")]
+    public Animator gachaAnimator;            // attach your gacha Animator
+    public string rollTriggerName = "Roll";   // Animator trigger name
 
     [Header("Loot Tables")]
-    public LootItem[] gacha1Loot;   
-    public LootItem[] gacha2Loot;   
-    public LootItem[] gacha3Loot;   
-    public LootItem[] gacha4Loot;   // added for 4th panel
+    public LootItem[] gacha1Loot;
+    public LootItem[] gacha2Loot;
+    public LootItem[] gacha3Loot;
+    public LootItem[] gacha4Loot;
 
     [Header("Gacha Costs")]
     public int panel1Cost = 10;
     public int panel2Cost = 20;
     public int panel3Cost = 30;
-    public int panel4Cost = 40;   // added for 4th panel
+    public int panel4Cost = 40;
 
     private bool showingResult = false;
 
@@ -29,7 +33,7 @@ public class GachaController : MonoBehaviour
     {
         wheelScroller = GetComponent<WheelScroller>();
         if (resultPanel != null)
-            resultPanel.SetActive(false); 
+            resultPanel.SetActive(false);
     }
 
     void Update()
@@ -39,33 +43,18 @@ public class GachaController : MonoBehaviour
             if (!showingResult)
             {
                 int panel = wheelScroller.CurrentIndex;
-
-                // Determine cost for this panel
                 int cost = GetPanelCost(panel);
 
-                // Check if player has enough gold
                 if (NewMonoBehaviourScript.gold >= cost)
                 {
                     NewMonoBehaviourScript.gold -= cost;
 
-                    LootItem loot = RollFromPanel(panel);
+                    // Play the roll animation
+                    if (gachaAnimator != null)
+                        gachaAnimator.SetTrigger(rollTriggerName);
 
-                    if (loot != null && resultPanel != null && resultText != null)
-                    {
-                        resultPanel.SetActive(true);
-                        resultText.text = loot.itemName;
-
-                        if (loot.icon != null && resultIcon != null)
-                        {
-                            resultIcon.sprite = loot.icon;
-                            resultIcon.enabled = true;
-                        }
-                        else if (resultIcon != null)
-                        {
-                            resultIcon.enabled = false;
-                        }
-                    }
-
+                    // Show result after animation
+                    StartCoroutine(ShowGachaResult(panel));
                     showingResult = true;
                 }
                 else
@@ -75,6 +64,7 @@ public class GachaController : MonoBehaviour
             }
             else
             {
+                // Hide previous result
                 if (resultPanel != null)
                     resultPanel.SetActive(false);
 
@@ -85,13 +75,39 @@ public class GachaController : MonoBehaviour
 
     private int GetPanelCost(int panel)
     {
-        switch(panel)
+        switch (panel)
         {
             case 0: return panel1Cost;
             case 1: return panel2Cost;
             case 2: return panel3Cost;
-            case 3: return panel4Cost;   // added case for 4th panel
+            case 3: return panel4Cost;
             default: return 0;
+        }
+    }
+
+    private IEnumerator ShowGachaResult(int panel)
+    {
+        // Wait for the animation to finish (adjust time to your animation length)
+        yield return new WaitForSeconds(1.0f);
+
+        LootItem loot = RollFromPanel(panel);
+
+        if (loot != null && resultPanel != null && resultText != null)
+        {
+            resultPanel.SetActive(true);
+            resultText.text = loot.itemName;
+
+            // Spawn prefab as child of resultPanel
+            if (loot.prefab != null)
+            {
+                // Clear previous prefab first
+                foreach (Transform child in resultPanel.transform)
+                    Destroy(child.gameObject);
+
+                GameObject go = Instantiate(loot.prefab, resultPanel.transform);
+                go.transform.localPosition = Vector3.zero;
+                go.transform.localScale = Vector3.one;
+            }
         }
     }
 
@@ -99,12 +115,12 @@ public class GachaController : MonoBehaviour
     {
         LootItem[] table = null;
 
-        switch(panel)
+        switch (panel)
         {
             case 0: table = gacha1Loot; break;
             case 1: table = gacha2Loot; break;
             case 2: table = gacha3Loot; break;
-            case 3: table = gacha4Loot; break;  // added case for 4th panel
+            case 3: table = gacha4Loot; break;
             default:
                 Debug.Log("No gacha for this panel.");
                 return null;
@@ -138,10 +154,9 @@ public class GachaController : MonoBehaviour
     [System.Serializable]
     public class LootItem
     {
-        public string itemName;    
-        public Sprite icon;
+        public string itemName;
+        public GameObject prefab; // use prefabs instead of sprites
         [Range(1, 100)]
         public int weight = 10;
     }
 }
-
