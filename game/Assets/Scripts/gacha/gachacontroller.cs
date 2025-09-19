@@ -102,6 +102,7 @@ public class GachaController : MonoBehaviour
         {
             resultPanel.SetActive(true);
             resultText.text = loot.itemName;
+            LootManager.AddLoot(loot.itemName);
 
             // Spawn prefab as child of resultPanel
             if (loot.prefab != null)
