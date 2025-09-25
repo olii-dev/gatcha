@@ -7,19 +7,16 @@ using System.Collections;
 public class GachaController : MonoBehaviour
 {
     private WheelScroller wheelScroller;
+    private Inventory inventory;
 
-    [Header("UI References")]
-    
-    
     [Header("UI References")]
     public GameObject resultPanel;
     public TextMeshProUGUI resultText;
-    public Transform lootSpawnPoint; // ADD THIS LINE
-
+    public Transform lootSpawnPoint;
 
     [Header("Animation")]
-    public Animator gachaAnimator;            // attach your gacha Animator
-    public string rollTriggerName = "Roll";   // Animator trigger name
+    public Animator gachaAnimator;
+    public string rollTriggerName = "Roll";
 
     [Header("Loot Tables")]
     public LootItem[] gacha1Loot;
@@ -38,6 +35,7 @@ public class GachaController : MonoBehaviour
     void Start()
     {
         wheelScroller = GetComponent<WheelScroller>();
+        inventory = FindObjectOfType<Inventory>();
         if (resultPanel != null)
             resultPanel.SetActive(false);
     }
@@ -104,22 +102,32 @@ public class GachaController : MonoBehaviour
             resultText.text = loot.itemName;
             LootManager.AddLoot(loot.itemName);
 
+            // Add to Inventory if possible
+            if (inventory != null)
+            {
+                // Create a new Item (from inventory.cs) and add it
+                var item = new Item(loot.itemName, "Looted from gacha", 1); // You can set description/rarity as needed
+                inventory.AddItem(item);
+
+                // Try to update the InventoryUI if present
+                var inventoryUI = FindObjectOfType<InventoryUI>();
+                if (inventoryUI != null)
+                {
+                    inventoryUI.OnLootAdded();
+                }
+            }
+
             // Spawn prefab as child of resultPanel
             if (loot.prefab != null)
             {
                 // Clear previous prefab first
-                // Clear previous loot only
                 foreach (Transform child in lootSpawnPoint)
-                Destroy(child.gameObject);
+                    Destroy(child.gameObject);
 
                 // Spawn new loot prefab
-                if (loot.prefab != null)
-                {
                 GameObject go = Instantiate(loot.prefab, lootSpawnPoint);
                 go.transform.localPosition = Vector3.zero; // adjust if needed
                 go.transform.localScale = Vector3.one;
-                }
-
             }
         }
     }
