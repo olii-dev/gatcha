@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-#if TMP_PRESENT
 using TMPro;
-#endif
 
 public class PulledLootUI : MonoBehaviour
 {
@@ -33,17 +31,9 @@ public class PulledLootUI : MonoBehaviour
         foreach (var loot in items)
         {
             GameObject entry = Instantiate(itemEntryPrefab, contentPanel);
-#if TMP_PRESENT
-            var tmp = entry.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+            var tmp = entry.GetComponent<TextMeshProUGUI>();
             if (tmp != null)
                 tmp.text = loot;
-            else
-#endif
-            {
-                var text = entry.GetComponentInChildren<Text>();
-                if (text != null)
-                    text.text = loot;
-            }
             spawnedEntries.Add(entry);
         }
     }
